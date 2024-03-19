@@ -1,0 +1,186 @@
+                       To Cut PDF Into Number of Parts
+
+  Str_InputData = System.Text.RegularExpressions.Regex.Split(Str_InputData,"ACCOUNT\s+DATES\s+AMOUNTS\s+STATUS")
+
+            
+                    [A]     Split Methods
+
+ (Input variable)  Str_Text  = "Hello RPA World"
+
+  (Output variable)  var_Output
+
+1) var_Output  =  Split(Str_Text," ")
+                                        For Perticular Word   =  var_Output(0),  var_Output(1), var_Output(3)
+
+2)var_Output  =  Str_Text.Split(" ".ToCharArray)
+
+3)var_Output  =  Str_Text.Split(" "C)
+
+                                
+
+                       [B]     Substring - it will gives us data from (0,5), (start index, End Index)
+
+4)Str_Text.Substring(0,5)
+
+                             
+
+                        [C]    Fetching SUBSTRING from the End of the Text
+
+
+
+5) Str_Text.Substring(Str_Text.Length-6)
+
+6)Output = Left(Str_Text,5)                                 -----It will give Left5 from left
+
+7)Output = Right(Str_Text,5)                                -----It will give right5 From right
+
+
+                        
+                           [D]   Trim     it will removes spaces
+
+8)Str_Text.Trim
+
+                          
+                          [E]    For REMOVING (TKT-) from (TKT-123456) WORD
+
+9)Str_Text.Trim("TKT-".ToCharArray)             OR
+
+10)Str_Text.TrimStart("TKT-".ToCharArray)     OR
+
+11)Str_Text.TrimEnd("-123456".ToCharArray)
+
+                          
+                           [F]   REPLACE
+
+12) Str_Text.Replace("TKT","STR")
+
+                          [G] REMOVE
+
+13)Str_Text.Remove(5)                         - it will remove from 5th onword
+
+
+                           [H]LAST INDEX
+
+14)Str_Text.LastIndexOf("6").ToString
+
+
+       Get value From Get Text Variable(str_ClientInformation)
+
+15)clientID = str_ClientInformation.Substring(str_ClientInformation.IndexOf("Client ID: ") + "Client ID: ".Length).Split(Environment.NewLine.ToCharArray)(0)
+
+
+     To Convert Excel Cell (Number Value) to Date Format
+
+16) Var_Date = DateTime.FromOADate(Convert.ToDouble(CurrentRow("Departure_Date"))).ToString("dd-MMM-yy")
+
+            where Departure_Date is column name in Excel
+
+
+
+
+
+        Project_ConsumerCIBIL_Arka
+
+17)     Consumer Name    "(?<=CONSUMER:\s).*\n.*(?= DATE)|(?<=CONSUMER:\s).*(?= DATE)"
+
+18)     LOAN Type    (?<=\nT YPE : )(.*\n.*(?:LOAN))|(.*\n.*(?:CARD))|(?<=\nT YPE : )\n.*(?:LOAN)|(.*\n.*(?:CARD))
+
+
+
+
+                 VBA Codes
+
+
+'Delete Specific Sheet
+
+Sub DeleteSheet()
+
+Sheets("B2B-Copy").Delete
+
+End Sub
+'
+------------------------
+
+'Delete Sheet Dynamically - Pass Sheet from Parameter
+
+Sub DeleteSheetParameter(SheetName)
+
+Sheets(SheetName).Delete
+
+End Sub
+'
+-------------------------
+
+'Handle Error If Sheet Not Exists
+
+Sub CheckSheetExists()
+
+On Error Resume Next
+Sheets("B2B-Copy").Delete
+
+End Sub
+
+
+
+
+              Excel Formulas PR Sheet
+
+1) Sum of 2 Columns =                  =(column1+column2)
+2) Substitution of 2 Columns =         =(column1-column2)
+
+3)ITC UID        =R2&L2
+
+4)PR UID         =F2&H2
+
+5) SupplierCode2        remove 06- from this number SBHU0021-06
+
+                   =LEFT(C2, LEN(C2) - 3)
+
+6) WRITERGSTIN        remove 06- from this number 06 - 06AABCW6386P1ZJ
+
+                   =RIGHT(T2,LEN(T2)-4)
+             
+
+7) addition or PR Columns(IGST+CGST+SGST) AND write it into another sheet   
+                =SUMIF(PRResult!A:A,FinalSheet!B2,PRResult!P:P)+SUMIF(PRResult!A:A,FinalSheet!B2,PRResult!Q:Q)+SUMIF(PRResult!A:A,FinalSheet!B2,PRResult!R:R)
+
+                =SUMIF(PRResult!A:A,Combined_UID!A2,PRResult!Q:Q)+SUMIF(PRResult!A:A,Combined_UID!A2,PRResult!R:R)+SUMIF(PRResult!A:A,Combined_UID!A2,PRResult!S:S)
+
+     or
+                =SUMIF(PRResult!A:A,Combined_UID!A2,PRResult!P:P)+SUMIF(PRResult!A:A,Combined_UID!A2,PRResult!Q:Q)+SUMIF(PRResult!A:A,Combined_UID!A2,PRResult!R:R)
+
+
+8) addition of ITC column(Base) AND write it into another sheet
+                =SUMIF(ITCResult!A:A,Combined_UID!A2,ITCResult!E:E)
+      or    
+                =SUMIF(ITCResult!A:A,FinalSheet!B2,ITCResult!E:E)
+
+
+9) Difference       =C2-D2
+
+10) VLookup         =VLOOKUP(A2,Matched_UID!A:A,1,0)
+
+                 
+
+9)Invoice type   =IF(D2="PIE_GST_RCM", "Non-Regular",IF(D2="PIE_GST_RCM_R", "Non-regular","Regular"))
+
+
+10)Supply Attract Reverse Charge    =IF(D2="PIE_GST_RCM", "Yes",IF(D2="PIE_GST_RCM_R", "Yes","No"))
+
+11) Invoice Value   =P2+Q2+R2+S2    = TaxableValue+IGST+CGST+SGST
+
+
+12) Taxable Value2   =SUBSTITUTE(R2, ",", "")                             ---- to remove (,) from Amount value
+
+13) 18% GST          =IF(ISNUMBER(--LEFT(C8,2)), LEFT(C8,2), "")          ---- to remove values after 2 digits
+
+
+
+
+
+
+
+
+
+
+

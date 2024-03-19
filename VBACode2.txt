@@ -1,0 +1,28 @@
+'Delete Specific Sheet
+
+Sub DeleteSheet()
+
+Sheets("B2B-Copy").Delete
+
+End Sub
+'
+------------------------
+
+'Delete Sheet Dynamically - Pass Sheet from Parameter
+
+Sub DeleteSheetParameter(SheetName)
+
+Sheets(SheetName).Delete
+
+End Sub
+'
+-------------------------
+
+'Handle Error If Sheet Not Exists
+
+Sub CheckSheetExists()
+
+On Error Resume Next
+Sheets("Copy_B2B-CDNR").Delete
+
+End Sub
